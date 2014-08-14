@@ -1,1 +1,15 @@
 C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\bin\Debug\kf_sql.exe.config
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\bin\Debug\kf_sql.exe
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\bin\Debug\kf_sql.pdb
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.csprojResolveAssemblyReference.cache
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\MainWindow.baml
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\MainWindow.g.cs
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\App.g.cs
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql_MarkupCompile.cache
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.g.resources
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.Properties.Resources.resources
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.csproj.GenerateResource.Cache
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.exe
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.pdb
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\bin\Debug\MySql.Data.dll
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Debug\kf_sql.csproj.ResolveComReference.cache

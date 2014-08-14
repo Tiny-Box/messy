@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button Content="打开Excel" Click="OpenExcel" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="498"/>
+        <DataGrid x:Name="testgrid" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Height="102" Width="498"/>
+
     </Grid>
 </Window>
