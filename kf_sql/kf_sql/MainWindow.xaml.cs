@@ -115,11 +115,13 @@ namespace kf_sql
 
             //最低级别
             Excel.Range rRng = xlApp.ActiveCell;
-            rRng = ws.get_Range("E2", "E16");
+            string cell = "E" + num.ToString();
+            rRng = ws.get_Range("E2", cell);
             object[,] rank = rRng.Value;
 
             //开服时间
-            rRng = ws.get_Range("G2", "G16");
+            cell = "G" + num.ToString();
+            rRng = ws.get_Range("G2", cell);
             object[,] time = rRng.Value;
 
             DateTime test = DateTime.Parse(time[1, 1].ToString());
@@ -151,9 +153,14 @@ namespace kf_sql
 
         public string[] kfwd_rule_sql(int num, object[,] rank, object[,] time)
         {
-            string[] sql = new string[num];
+            string[] sql = new string[num-1];
 
-            return sql;
+            for (int i = 0; i < num - 1; i++ )
+            {
+                sql[i] = "insert into kfgz_season_info(pk,season_id, state, rule_id, rewardg_id, begin_time, first_battle_time, end_time, game_server_limit) values(value1,value2)";
+            }
+
+                return sql;
         }
 
         #region SQL 操作
