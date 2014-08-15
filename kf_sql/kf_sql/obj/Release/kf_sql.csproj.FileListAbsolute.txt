@@ -1,0 +1,2 @@
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\bin\Release\kf_sql.exe.config
+C:\Users\wangyx.GAME-REIGN\Documents\messy\kf_sql\kf_sql\obj\Release\kf_sql.csproj.ResolveComReference.cache

@@ -110,12 +110,19 @@ namespace kf_sql
             
             Excel.Worksheet ws = (Excel.Worksheet)xlWorkbook.Worksheets[1];
 
-            //服务器数量
+            Excel.Range rRng = xlApp.ActiveCell;
             int num = ws.UsedRange.CurrentRegion.Rows.Count;
 
+            //服务器数量
+
+            string cell = "A" + num.ToString();
+            rRng = ws.get_Range(cell, cell);
+            double Num = rRng.Value;
+
+
             //最低级别
-            Excel.Range rRng = xlApp.ActiveCell;
-            string cell = "E" + num.ToString();
+
+            cell = "E" + num.ToString();
             rRng = ws.get_Range("E2", cell);
             object[,] rank = rRng.Value;
 
@@ -123,44 +130,83 @@ namespace kf_sql
             cell = "G" + num.ToString();
             rRng = ws.get_Range("G2", cell);
             object[,] time = rRng.Value;
-
-            DateTime test = DateTime.Parse(time[1, 1].ToString());
-            DateTime test1 = test.AddSeconds(1);
-
-            string conn = "Database='test_cs';Data Source='localhost';User Id='root';Password='1234';charset='utf8';pooling=true";
-
-            string drop = "DROP TABLE IF EXISTS `kfgz_season_info`;";
-
-            string addTable = "CREATE TABLE `kfgz_season_info` (`pk` int(11) NOT NULL AUTO_INCREMENT, `season_id` int(11) DEFAULT NULL, `state` int(1) DEFAULT NULL, `rule_id` int(11) DEFAULT NULL, `rewardg_id` int(11) DEFAULT NULL, `begin_time` datetime DEFAULT NULL, `first_battle_time` datetime DEFAULT NULL, `end_time` datetime DEFAULT NULL, `game_server_limit` int(1) DEFAULT '0', PRIMARY KEY(`pk`)) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;";
-
-            int b = ExecuteNonQuery(conn, CommandType.Text, drop, null);
-            MessageBox.Show(b.ToString());
-            int c = ExecuteNonQuery(conn, CommandType.Text, addTable, null);
-            MessageBox.Show(c.ToString());
-
-            
-
-            
-
-
-
             xlApp.Visible = false;
 
             xlApp.Quit();
 
+
+            string conn = "Database='" + Database.Text + "';Data Source='" + Datasource.Text + "';User Id='" + user.Text + "';Password='" + password.Text + "';charset='utf8';pooling=true";
+
+            string drop = "DROP TABLE IF EXISTS `kfwd_rule`;";
+
+            string addTable = "CREATE TABLE `kfwd_rule` (`pk` int(11) NOT NULL AUTO_INCREMENT, `server_end_time` datetime DEFAULT NULL, `server_start_time` datetime DEFAULT NULL, `rule_id` int(11) NOT NULL, `match_limit` int(11) DEFAULT NULL, `level_range_list` varchar(255) DEFAULT NULL, `reward_rule_group_type` varchar(255) DEFAULT NULL, `round_god_list` varchar(255) DEFAULT NULL, `level_range_type` int(11) NOT NULL, PRIMARY KEY(`pk`), KEY `idx1` (`rule_id`, `server_start_time`)) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;";
+
+            // 搜索kfwd_rule表与重建
+            int b = ExecuteNonQuery(conn, CommandType.Text, drop, null);
+            b = ExecuteNonQuery(conn, CommandType.Text, addTable, null);
+            
+            // 批量导入kfwd_rule的数据
+            kfwd_rule_sql(num, rank, time, conn);
+
+
+
+
+
+            
+
         }
 
 
-        public string[] kfwd_rule_sql(int num, object[,] rank, object[,] time)
+        public void kfwd_season_info_sql(object obj, RoutedEventArgs e)
         {
-            string[] sql = new string[num-1];
+            string conn = "Database='"+Database.Text+"';Data Source='"+Datasource.Text+"';User Id='"+user.Text+"';Password='"+password.Text+"';charset='utf8';pooling=true";
+            
+            string count_sql = "select count(*) from `kfwd_season_info`";
+            object a = ExecuteScalar(conn, CommandType.Text, count_sql, null);
+            int count = Convert.ToInt32(a);
+            count += 1;
 
-            for (int i = 0; i < num - 1; i++ )
+            string season_id_sql = "select season_id from `kfwd_season_info` where `pk` = " + count.ToString() + ";";
+            a = ExecuteScalar(conn, CommandType.Text, season_id_sql, null);
+            int season_id = Convert.ToInt32(a);
+            season_id += 1;
+
+            DateTime sign_up_d = DateTime.Parse(sign_up.Text);
+            DateTime begin_d = DateTime.Parse(begin.Text);
+            DateTime end_d = DateTime.Parse(end.Text);
+
+            DateTime active_time = sign_up_d;
+            DateTime battle_time = begin_d;
+            DateTime end_time = end_d.AddHours(27);
+            DateTime next_day_begion_time = begin_d.AddDays(1);
+            DateTime schedule_time = begin_d.AddSeconds(-595);
+            DateTime show_battle_time = schedule_time.AddSeconds(5);
+            DateTime sign_up_finish_time = begin_d.AddMinutes(-10);
+            DateTime sign_up_time = sign_up_d;
+            DateTime third_day_begion_time = end_d;
+
+            // 做添加进kfwd_season_info的SQL
+            string sql = "insert into `kfwd_season_info` VALUES (" + count.ToString() + ",'"+active_time.ToString()+"','"+battle_time.ToString()+"','"+end_time.ToString()+"',1,'"+next_day_begion_time.ToString()+"',5,540,'"+schedule_time.ToString()+"',"+season_id.ToString()+",'"+show_battle_time.ToString()+"','"+sign_up_finish_time.ToString()+"','"+sign_up_time.ToString()+"',15,,1,1,1,,,,0,0,360,'"+third_day_begion_time.ToString()+"',1);";
+            int b = ExecuteNonQuery(conn, CommandType.Text, sql, null);
+        }
+
+        public void kfwd_rule_sql(int num, object[,] rank, object[,] time, string conn)
+        {
+            string[] sql = new string[num];
+
+            sql[0] = "insert into kfwd_rule values('1', '"+ time[1,1].ToString() +"', '2014-02-25 00:00:01', '1', '1', '"+ rank[1,1] +"-999', '1', '13', '1');";
+            int b = ExecuteNonQuery(conn, CommandType.Text, sql[0], null); 
+
+            MessageBox.Show(sql[0]);
+            for (int i = 2; i < num; i++)
             {
-                sql[i] = "insert into kfgz_season_info(pk,season_id, state, rule_id, rewardg_id, begin_time, first_battle_time, end_time, game_server_limit) values(value1,value2)";
+                DateTime endtime = DateTime.Parse(time[i, 1].ToString());
+                DateTime starttime = DateTime.Parse(time[i-1, 1].ToString()).AddSeconds(1);
+                sql[i] = "insert into kfwd_rule values('"+i.ToString()+"','"+endtime.ToString()+"','"+starttime.ToString()+"','1','1','"+rank[i,1].ToString()+"-999','1','13','1');";
+                b = ExecuteNonQuery(conn, CommandType.Text, sql[i], null); 
             }
 
-                return sql;
+       
         }
 
         #region SQL 操作

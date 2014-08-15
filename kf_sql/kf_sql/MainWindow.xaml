@@ -3,8 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Content="打开Excel" Click="OpenExcel" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="498"/>
-        <DataGrid x:Name="testgrid" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Height="102" Width="498"/>
+        <Button Content="打开Excel" Click="OpenExcel" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="498"/>
+        <TextBox x:Name="Database" HorizontalAlignment="Left" Height="23" Margin="388,14,0,0" TextWrapping="Wrap" Text="gcmob" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Datasource" HorizontalAlignment="Left" Height="23" Margin="124,14,0,0" TextWrapping="Wrap" Text="localhost" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="user" HorizontalAlignment="Left" Height="23" Margin="124,54,0,0" TextWrapping="Wrap" Text="root" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="388,54,0,0" TextWrapping="Wrap" Text="1234" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Datasource" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="109"/>
+        <Label Content="Database" HorizontalAlignment="Left" Margin="274,12,0,0" VerticalAlignment="Top" Width="109"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="274,51,0,0" VerticalAlignment="Top" Width="109"/>
+        <Label Content="User" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="109"/>
+        <TextBox x:Name="sign_up" HorizontalAlignment="Left" Height="23" Margin="124,122,0,0" TextWrapping="Wrap" Text="2014-08-12 15:00:00" VerticalAlignment="Top" Width="384"/>
+        <TextBox x:Name="begin" HorizontalAlignment="Left" Height="23" Margin="124,173,0,0" TextWrapping="Wrap" Text="2014-08-13 20:00:00" VerticalAlignment="Top" Width="384"/>
+        <TextBox x:Name="end" HorizontalAlignment="Left" Height="23" Margin="124,226,0,0" TextWrapping="Wrap" Text="2014-08-15 20:00:00" VerticalAlignment="Top" Width="384"/>
+        <Label Content="报名截止" HorizontalAlignment="Left" Margin="10,122,0,0" VerticalAlignment="Top" Width="109"/>
+        <Label Content="比赛开始" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top" Width="109"/>
+        <Label Content="比赛结束" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Width="109"/>
+        <Button Content="导入数据库" Click="kfwd_season_info_sql" HorizontalAlignment="Left" Margin="10,279,0,0" VerticalAlignment="Top" Width="498"/>
 
     </Grid>
 </Window>
