@@ -91,26 +91,19 @@ namespace kf_sql
 
         public void conExcel(string filename)
         {
-            filename = "D:/Book1.xlsx";
-            //string connection = conExcel_str(filename);
+           
 
             DataSet dtTemp = new DataSet();
 
-            //OleDbConnection objConn = new OleDbConnection(connection);
-            //objConn.Open();
-
-            //OleDbDataAdapter oda = new OleDbDataAdapter("select * from [Sheet1$]", objConn);
-
-            //oda.Fill(dtTemp);
+            // 利用com组件打开Excel
             object oMissing = System.Reflection.Missing.Value;
-
             Excel.Application xlApp = new Excel.Application();
-
             Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(filename, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
-            
             Excel.Worksheet ws = (Excel.Worksheet)xlWorkbook.Worksheets[1];
 
             Excel.Range rRng = xlApp.ActiveCell;
+
+            // 获取当前表中实际数据行数
             int num = ws.UsedRange.CurrentRegion.Rows.Count;
 
             //服务器数量
@@ -130,8 +123,9 @@ namespace kf_sql
             cell = "G" + num.ToString();
             rRng = ws.get_Range("G2", cell);
             object[,] time = rRng.Value;
+            
+            // 关闭xlApp
             xlApp.Visible = false;
-
             xlApp.Quit();
 
 
